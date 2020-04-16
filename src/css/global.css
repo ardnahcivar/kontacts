@@ -1,0 +1,41 @@
+body{
+    font-size: 16px;
+}
+
+body * {
+    box-sizing: border-box;
+}
+
+body * {
+    /* border: 1px solid gray; */
+}
+header{
+    position: fixed;
+    left: 0;
+    top:0;
+    right: 0;
+    height:60px;
+    width: 100%;
+}
+
+main{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top:60px;
+    display: flex !important;
+    flex-direction: row;
+    margin: 0.5em;
+}
+
+@media (min-width: 481px){
+/* desktop, Ipad */   
+  
+    
+}
+
+
+@media (min-width: 320px) and (max-width: 480px) {
+/* mobile */
+    
+}

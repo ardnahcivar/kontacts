@@ -1,0 +1,17 @@
+@media (min-width: 320px) and (max-width: 480px) {
+    /* mobile */
+    .side_drawer{
+        width: 0%;
+        display: none;
+    }          
+}
+
+
+@media (min-width: 481px){
+    /* desktop, Ipad */   
+    .side_drawer{
+        width: 30%;
+        height:100%;
+    }                   
+}
+    
