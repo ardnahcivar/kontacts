@@ -1,8 +1,22 @@
 @media (min-width: 320px) and (max-width: 480px) {
     /* mobile */
     .side_drawer{
-        width: 0%;
-        display: none;
+        width: 100%;
+        position: fixed;
+        bottom:2em;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: flex-end;
+    }
+    .side_drawer button{
+        border-radius: 50%;
+        width: 4em;
+        height: 4em;
+        margin: 1em;
+    }
+    .side_drawer button::after{
+        content:url('./../../add-black-18dp.svg');
     }          
 }
 
@@ -12,6 +26,10 @@
     .side_drawer{
         width: 30%;
         height:100%;
+        padding: 0 2em;
+    }
+    .side_drawer button::after{
+        content:'Create a Contact';
     }                   
 }
     

@@ -2,17 +2,15 @@ import React from 'react'
 import styles from './side-drawer.module.css'
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux'
+import { Plus } from 'react-bootstrap-icons'
 
 import { addContact, toggleModal  } from './../../store/dispatchers'
 
 const sideDrawer = props => {
-    console.log(props)
-    console.log(typeof props.addContact)
-
     return (
         <aside className={styles.side_drawer}>
-            <Button variant="primary" size="lg" onClick={() => props.addContact()}>
-                Create a Contact
+            <Button variant="primary" size="md" onClick={() => props.addContact()}>
+                {/* Create a Contact <Plus size={30} /> */}
             </Button>
         </aside>
     )

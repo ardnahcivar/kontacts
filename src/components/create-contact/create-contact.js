@@ -1,28 +1,56 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect } from 'react'
 import styles from './create-contact.module.css'
-import { Button, Modal, Form, Col, Row} from 'react-bootstrap';
+import { Form, Col, Row} from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { PeopleCircle,Envelope} from 'react-bootstrap-icons';
-import { toggleModal  } from './../../store/dispatchers'
+import { PeopleCircle,Envelope} from 'react-bootstrap-icons'
+import { toggleModal, addContact, editContact  } from './../../store/dispatchers'
+import Modal from './../modal/modal'
+import { v1 as uuid} from 'uuid'
+import { MdPhone } from 'react-icons/md'
 
 const CreateContact = props => {
-  console.log('create cota')  
     console.log(props)
     const [contact,setContact] = useState({
-        firstName:'',
-        lastName:'',
-        email:'',
-        phoneNumber:'',
-        status:0
+        firstName: props.firstName,
+        lastName: props.lastName,
+        email: props.email,
+        phoneNumber: props.phoneNumber,
+        status: props.status
     })
 
-     const firstNameHandler = event => {
+  const [validated, setValidated] = useState(false);
+
+  const validations = () => {
+    if(!contact.firstName.trim().length || !contact.phoneNumber.trim().length ){
+      setValidated(true)
+      return
+    }
+    setValidated(false);
+    saveContact()
+  };
+
+    useEffect(() => {
+        if(props.editMode){
+            setContact(props.formData)
+        }else{
+          setContact({
+            firstName:'',
+            lastName: '',
+            email: '',
+            phoneNumber: '',
+            status: false
+          })
+        }
+    },[props.modal,props.editMode])
+
+    const firstNameHandler = event => {
       setContact({
         ...contact,
         firstName:event.target.value
       })
       console.log(contact)
      }
+
      const lastNameHandler = event => {
       setContact({
         ...contact,
@@ -31,79 +59,55 @@ const CreateContact = props => {
       console.log(`last name`)
       console.log(contact)
     }
+
     const emailHandler = event => {
       setContact({
         ...contact,
         email:event.target.value
       })
     }
+
     const phoneHandler = event => {
       setContact({
         ...contact,
         phoneNumber:event.target.value
       })
     }
+
     const statusHandler = event => {
       setContact({
         ...contact,
-        status:event.target.value
+        status: !contact.status
       })
       console.log(`status changed`)
       console.log(event.target.value)
     }
     
     const saveContact = _ => {
-      console.log('saved contact')
-      console.log(contact)
+      if(props.editMode){
+        props.toggleEditMode()
+        props.editContact(contact)
+        props.toggleModal()
+        props.toggleEditMode()
+      }else{
+        contact.id = Date.now()
+        props.createContact(contact)
+        props.toggleModal()
+      }
+     
     }
 
    return (
       <>
-        <MyVerticallyCenteredModal
+        <Modal
           show={props.modal}
-          onHide={props.toggleModal}
-          firstNameHandler={firstNameHandler}
-          lastNameHandler={lastNameHandler}
-          emailHandler={emailHandler}
-          phoneHandler={phoneHandler}
-          statusHandler={statusHandler}
+          onHide={props.editMode ? () => {props.toggleModal();props.toggleEditMode()}:props.toggleModal}
           onSave={saveContact}
-          closeModal={props.toggleModal}
-        />
-      </>
-    );
-  }
-
-const mapStateToProps = state => {
-  return {
-    modal:state.modal
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-      toggleModal:() => dispatch(toggleModal())
-    }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(CreateContact) 
-
-
-function MyVerticallyCenteredModal(props) {
-  console.log(props)
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Create a contact
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
+          closeModal={props.editMode ? () => {props.toggleModal();props.toggleEditMode()}:props.toggleModal}
+          title={props.editMode ? 'Edit the contact' : 'Create a contact'}
+          validations = {validations}
+        >
+          <Form noValidate validated={validated}>
           <Form.Group>
               {/* <Row xs={12}>
                   <Col xs={1} lg={2}> 
@@ -126,10 +130,13 @@ function MyVerticallyCenteredModal(props) {
                     <PeopleCircle color="gray" size={30} />
                   </Col>
                   <Col lg={5}>
-                    <Form.Control type="text" onChange={(e)=>props.firstNameHandler(e)} placeholder="First Name" />
+                    <Form.Control type="text" required value={contact.firstName} onChange={(e)=>firstNameHandler(e)} placeholder="First Name" />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid username.
+                    </Form.Control.Feedback>
                   </Col>
                   <Col lg={5}>
-                    <Form.Control type="text" onChange={(e)=>props.lastNameHandler(e)} placeholder="Last Name" />
+                    <Form.Control type="text" value={contact.lastName} onChange={(e)=>lastNameHandler(e)} placeholder="Last Name" />
                   </Col>
               </Row>
               <Row>
@@ -137,15 +144,18 @@ function MyVerticallyCenteredModal(props) {
                   <Envelope color="gray" size={30} />
                 </Col>
                 <Col lg={8}>
-                  <Form.Control type="email" placeholder="Enter email" onChange={(e)=>props.emailHandler(e)} /> 
+                  <Form.Control type="email" placeholder="Enter email" value={contact.email} onChange={(e)=>emailHandler(e)} /> 
                 </Col>
               </Row>
               <Row>
                 <Col lg={1}>
-                    Phone Number
+                  <MdPhone color='gray' size={30}/>                   
                 </Col>
                 <Col lg={8}>
-                  <Form.Control type="text" placeholder="Enter phone number" onChange={(e)=>props.phoneHandler(e)} /> 
+                  <Form.Control required type="text" placeholder="Enter phone number" value={contact.phoneNumber} onChange={(e)=>phoneHandler(e)} /> 
+                  <Form.Control.Feedback type="invalid">
+                      Please provide a valid phone number.
+                  </Form.Control.Feedback>
                 </Col>
               </Row>
               <Row>
@@ -157,16 +167,40 @@ function MyVerticallyCenteredModal(props) {
                     type="switch"
                     id="custom-switch"
                     label="Active"
-                    onChange={(e)=>props.statusHandler(e)}
+                    checked={contact.status}
+                    value={contact.status}
+                    onChange={(e)=>statusHandler(e)}
                   />
                 </Col>
               </Row>
           </Form.Group>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={props.closeModal}>Close</Button>  
-        <Button onClick={() => props.onSave()}>Submit</Button>
-      </Modal.Footer>
-    </Modal>
-  );
+          </Form>
+        </Modal>
+
+      </>
+    );
+  }
+
+const mapStateToProps = state => {
+  return {
+    modal:state.modal
+  }
 }
+
+const mapDispatchToProps = dispatch => {
+    return {
+      toggleModal:() => dispatch(toggleModal()),
+      createContact:(contact) => dispatch(addContact(contact)),
+      editContact:(contact) => dispatch(editContact(contact))
+    }
+}
+
+CreateContact.defaultProps = {
+  firstName:'',
+  lastName:'',
+  email:'',
+  phoneNumber:'',
+  status:false
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(CreateContact) 

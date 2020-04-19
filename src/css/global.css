@@ -1,8 +1,9 @@
 body{
     font-size: 16px;
+    font-family: Roboto,Helvetica Neue,sans-serif;
 }
 
-body * {
+body > * {
     box-sizing: border-box;
 }
 
@@ -25,9 +26,14 @@ main{
     top:60px;
     display: flex !important;
     flex-direction: row;
-    margin: 0.5em;
+    margin: 2em 0.5em;
 }
-
+.row{
+    margin: 1em 0
+}
+.modal-header,.modal-footer{
+    border:none !important;
+}
 @media (min-width: 481px){
 /* desktop, Ipad */   
   
