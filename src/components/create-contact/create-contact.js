@@ -9,7 +9,6 @@ import { v1 as uuid} from 'uuid'
 import { MdPhone } from 'react-icons/md'
 
 const CreateContact = props => {
-    console.log(props)
     const [contact,setContact] = useState({
         firstName: props.firstName,
         lastName: props.lastName,
@@ -48,7 +47,6 @@ const CreateContact = props => {
         ...contact,
         firstName:event.target.value
       })
-      console.log(contact)
      }
 
      const lastNameHandler = event => {
@@ -56,8 +54,6 @@ const CreateContact = props => {
         ...contact,
         lastName:event.target.value 
       })
-      console.log(`last name`)
-      console.log(contact)
     }
 
     const emailHandler = event => {
@@ -79,8 +75,6 @@ const CreateContact = props => {
         ...contact,
         status: !contact.status
       })
-      console.log(`status changed`)
-      console.log(event.target.value)
     }
     
     const saveContact = _ => {

@@ -30,7 +30,6 @@ const ContactList = props => {
     }, [detailContactId]);
 
     const saveContact = (type,contactId) => {
-        console.log(`called save contact`)
         props.toggleModal()
         toggleEditMode()
         let matchedObject = props.contacts.filter(contact => contact.id === contactId);
@@ -46,7 +45,6 @@ const ContactList = props => {
     const selectedContact = event => {
         const val = event.target.dataset.contactid
         setDetaiContactId(val)
-        debugger
         event.preventDefault()
         event.stopPropagation()
     }

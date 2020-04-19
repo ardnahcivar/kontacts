@@ -1,5 +1,4 @@
 .contact_list{
-    /* display: flex; */
     min-height: 80vh;
     background: #fafafa;
 }
@@ -7,8 +6,7 @@
 .contacts_list_container{
     overflow: auto;
     width:100%;
-    height: 80vh;
-    padding: 1em;
+    height: 70vh;
 }
 .heading{
     display: flex;
@@ -16,7 +14,6 @@
 }
 .contactsHeader{
     display: flex;
-    padding: 0 1em;
     font-weight: lighter;
     font-size: 0.8em;
     color: rgba(0, 0, 0, 0.54);
@@ -25,19 +22,23 @@
 .contactsHeader p{
     margin: 0;
 }
-.noOfContacts{
-    padding: 0.4em;
-    color: gray;
-}
+
 @media (min-width: 481px){
     /* desktop, Ipad */   
     .contact_list{
         width: 70%;
         padding: 1em;
     }
+    .contactsHeader{
+        padding: 0.5em
+    }
     .contactsHeader p{
         width: 33.33%;
     }
+    .noOfContacts{
+        display: none;
+    }
+    
 }
 
 
@@ -48,5 +49,9 @@
     }
     .contactsHeader p{
         width: 45%;
+    }
+    .noOfContacts{
+        padding: 0.4em;
+        color: gray;
     }    
 }

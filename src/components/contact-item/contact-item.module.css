@@ -41,9 +41,9 @@
 @media (min-width: 320px) and (max-width: 480px) {
     /* mobile */
    .contact_item_firstName,.contact_item_phoneNumber{
-        width: 45%;
+        width: 40%;
    }
    .contact_item_actions{
-        width: 10%;
+        width: 20%;
    }
 }

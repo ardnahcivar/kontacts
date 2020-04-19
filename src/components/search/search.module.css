@@ -1,0 +1,22 @@
+.searchbox{
+    display:flex;
+    align-items: center;
+    width:40%;
+    height:80%;
+    position: relative;
+}
+.searchIcon{
+    position: absolute;
+    padding: 0.4em;
+}
+.searchbox input{
+    color: #fff;
+    padding: 0 2em;
+    height:100%;
+    width: 100%;
+    background: #612279;
+    border-color: #a13acb;
+    outline: #a13acb;
+    border: none;
+    border-radius: 5px;
+}

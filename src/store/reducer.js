@@ -15,7 +15,7 @@ const initialState = {
     contacts:[]
 }
 
-if(persistedData.length){
+if(persistedData && persistedData.length){
     initialState.contacts = persistedData
 }
 

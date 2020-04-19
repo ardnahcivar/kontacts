@@ -7,17 +7,13 @@ import { connect } from 'react-redux'
 
 const ContactItem = props => {
     const [focus,setFocus] = useState(false)
- console.log(`@@@@@@@@@@@@@@@@@@@@@@@@@22`)
+    const edit = contactId => {
+        props.edit('edit',contactId)
+    } 
 
- console.log(props)
-
-  const edit = contactId => {
-    props.edit('edit',contactId)
-  }
-
-  const remove = contactId => {
+    const remove = contactId => {
     props.remove(contactId)
-  } 
+    } 
 
     return (
         <div className={styles.contact_item} data-contactid={props.id} onMouseEnter={()=>setFocus(true)} onMouseLeave={()=>setFocus(false)}>
@@ -32,10 +28,10 @@ const ContactItem = props => {
                     (
                     <>
                         <div className={styles.contact_item_icon} onClick={(e)=>{edit(props.id);e.preventDefault();e.stopPropagation()}}>
-                            <Pencil />
+                            <Pencil color={'blue'} />
                         </div>
                         <div className={styles.contact_item_icon} onClick={(e)=>{remove(props.id);e.preventDefault();e.stopPropagation()}}>
-                            <Trash />
+                            <Trash color={'red'}/>
                         </div>
                     </>
                     )

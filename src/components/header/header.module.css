@@ -1,33 +1,24 @@
 .header{
     display: flex;
     align-items: center;
-    background: #a13acb;
+    background: hsl(283, 58%, 51%);
     color: #fff;
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
     z-index: 99;
 }
 .headerTitle{
     padding: 0 0.2em;
-    width:40%;
+    width:30%;
 }
-.searchbox{
-    display:flex;
-    align-items: center;
-    width:40%;
-    position: relative;
-}
-.searchIcon{
-    position: absolute;
-    padding: 0.4em;
-}
-.searchbox input{
-    color: #fff;
-    padding: 0 2em;
-    height:40px;
-    height: 40px;
-    width: 100%;
-    background: #612279;
-    border-color: #a13acb;
-    outline: #a13acb;
-    border: none;
-}
+
+@media (min-width: 481px){
+    /* desktop, Ipad */   
+      
+        
+    }
+    
+    
+    @media (min-width: 320px) and (max-width: 480px) {
+    /* mobile */
+        
+    }

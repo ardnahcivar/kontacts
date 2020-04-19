@@ -1,1 +1,64 @@
-@import url('./css/global.css')
+/* @import url('./css/global.css') */
+
+body{
+    font-size: 16px;
+    font-family: Roboto,Helvetica Neue,sans-serif;
+}
+
+body > * {
+    box-sizing: border-box;
+}
+
+body * {
+    /* border: 1px solid gray; */
+}
+header{
+    position: fixed;
+    left: 0;
+    top:0;
+    right: 0;
+    width: 100%;
+}
+
+main{
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: flex !important;
+    flex-direction: row;
+    margin: 0.5rem;
+}
+.row{
+    margin: 1em 0
+}
+.modal-header,.modal-footer{
+    border:none !important;
+}
+.modal-body{
+    padding: 0 1rem !important;
+}
+.modal-title{
+    font-weight: 400;
+    color: gray;
+}
+@media (min-width: 481px){
+/* desktop, Ipad */   
+    header{
+        height:60px;
+    }
+
+    main{
+        top:60px;
+    }
+}
+
+
+@media (min-width: 320px) and (max-width: 480px) {
+/* mobile */
+    header{
+        height:40px;
+    }
+    main{
+        top:40px;
+    }
+}

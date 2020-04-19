@@ -5,7 +5,6 @@ import { MdPhone, MdLens } from 'react-icons/md'
 import styles from './detail-contact.module.css'
 
 const DetailContact = props => {
-    debugger
     return(
         <Modal
             size="lg"
